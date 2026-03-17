@@ -1,9 +1,146 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>Meine Website</title>
-</head>
-<body>
-  <h1>Hallo Welt!</h1>
-</body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy Birthday, Liebs Schnuegli</title>
+    <meta
+      name="description"
+      content="A playful birthday letter with a moving gift that only opens after a romantic little challenge."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <div class="floating floating-one"></div>
+      <div class="floating floating-two"></div>
+      <div class="floating floating-three"></div>
+
+      <main class="card">
+        <section class="envelope-stage" id="envelopeStage">
+          <p class="eyebrow">For The Birthday Girl</p>
+          <h1>Happy Birthday - 28</h1>
+          <p class="intro">
+            A small love letter arrived for you. Tap the envelope and let the
+            celebration begin.
+          </p>
+
+          <button class="envelope" id="envelopeButton" type="button" aria-label="Open birthday envelope">
+            <span class="envelope-back"></span>
+            <span class="envelope-letter">
+              <span class="stamp">28</span>
+              <span class="letter-title">Happy Birthday</span>
+              <span class="letter-note">Liebs Schnuegli</span>
+            </span>
+            <span class="envelope-flap"></span>
+            <span class="envelope-front"></span>
+          </button>
+
+          <p class="tiny-note">Click to open your birthday letter.</p>
+        </section>
+
+        <section class="letter-panel hidden" id="letterPanel">
+          <div class="letter-copy">
+            <p class="eyebrow">Opened With Love</p>
+            <h2>Happy Birthday liebs Schnuegli</h2>
+            <p class="letter-message">
+              Today is all about celebrating you: your warmth, your humor, your
+              beautiful heart, and every little thing that makes life brighter
+              with you in it.
+            </p>
+            <p class="letter-message">
+              I wrapped your present in a tiny challenge. Somewhere below,
+              there’s a stubborn gift waiting to be caught. It may be playful,
+              but it knows it belongs to you.
+            </p>
+          </div>
+
+          <figure class="photo-sticker">
+            <div class="photo-cutout">
+              <img
+                src="./girlfriend-photo.jpg"
+                alt="Birthday portrait"
+                id="girlfriendPhoto"
+              />
+            </div>
+            <figcaption>Birthday muse</figcaption>
+          </figure>
+        </section>
+
+        <section class="play-area hidden" id="challengeSection">
+          <div class="status-panel">
+            <div>
+              <p class="label">Gift Mood</p>
+              <p class="value" id="mood">Very smug</p>
+            </div>
+          </div>
+
+          <div class="arena" id="arena">
+            <div class="arena-copy">
+              <p>The present has a dramatic personality.</p>
+            </div>
+
+            <button
+              class="gift-button"
+              id="giftButton"
+              type="button"
+              aria-label="Try to catch the birthday gift"
+            >
+              <span class="gift-lid"></span>
+              <span class="gift-box"></span>
+              <span class="gift-ribbon gift-ribbon-vertical"></span>
+              <span class="gift-ribbon gift-ribbon-horizontal"></span>
+            </button>
+
+            <div class="message-bubble" id="messageBubble">
+              Too slow. Try again.
+            </div>
+          </div>
+        </section>
+
+        <section class="hint-strip hidden" id="hintStrip">
+          <p id="hintText">
+            This present has the energy of someone who knows she looks amazing.
+          </p>
+        </section>
+
+        <section class="transition-panel hidden" id="transitionPanel" aria-hidden="true">
+          <div class="transition-card">
+            <p class="eyebrow">Next Chapter</p>
+            <h2>One tiny birthday challenge</h2>
+            <p>
+              Your letter has been opened. The present is feeling shy, playful,
+              and a little dramatic.
+            </p>
+          </div>
+        </section>
+
+        <section class="reveal hidden" id="revealCard">
+          <p class="eyebrow">Gift Unlocked</p>
+          <h2>Pilates, chosen by you.</h2>
+          <p id="finalMessage">
+            Your birthday gift is a voucher for 5 Pilates sessions at the
+            studio of your choice. If you like, we can book it at BLG Sports in
+            Zurich, or anywhere that feels perfect for you.
+          </p>
+          <div class="voucher">
+            <p class="voucher-label">Birthday Voucher</p>
+            <p class="voucher-title">5 x Pilates</p>
+            <p class="voucher-copy">
+              Redeemable at your favorite studio. Your choice, your pace, your
+              moment.
+            </p>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
 </html>
