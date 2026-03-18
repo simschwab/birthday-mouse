@@ -2,98 +2,21 @@ const envelopeButton = document.getElementById("envelopeButton");
 const envelopeStage = document.getElementById("envelopeStage");
 const letterPanel = document.getElementById("letterPanel");
 const challengeSection = document.getElementById("challengeSection");
-const hintStrip = document.getElementById("hintStrip");
 const transitionPanel = document.getElementById("transitionPanel");
 const giftButton = document.getElementById("giftButton");
 const arena = document.getElementById("arena");
-const moodDisplay = document.getElementById("mood");
-const hintText = document.getElementById("hintText");
 const revealCard = document.getElementById("revealCard");
-const messageBubble = document.getElementById("messageBubble");
 const girlfriendPhoto = document.getElementById("girlfriendPhoto");
 
 const totalAttempts = 28;
 const isCoarsePointer = window.matchMedia("(pointer: coarse)").matches;
 
-const dodgeMessages = [
-  "Nope. It likes being admired.",
-  "Still untouchable.",
-  "Almost. The box is feeling theatrical.",
-  "It moved with excellent timing.",
-  "This present trained for this moment.",
-  "Still dodging with confidence.",
-  "You are being flirted with by a gift.",
-  "Persistent. Impressive.",
-  "The ribbon slipped away again.",
-  "The box refuses to be basic.",
-  "The present is laughing softly.",
-  "Nearly. Very nearly.",
-  "It seems to enjoy your attention.",
-  "Still dramatic, still wrapped.",
-  "That was actually close.",
-  "The gift is beginning to sweat.",
-  "Birthday determination detected.",
-  "Okay, the box is less smug now.",
-  "You might break its spirit soon.",
-  "The present is reconsidering everything.",
-  "It knows the end is near.",
-  "Still one jump ahead.",
-  "The bow is losing confidence.",
-  "This is becoming inevitable.",
-  "The box is tired but committed.",
-  "One of you is about to win.",
-  "The gift has accepted its destiny.",
-  "Now click. It is finally yours."
-];
-
-const moods = [
-  "Very smug",
-  "Playfully rude",
-  "Still performing",
-  "Slightly nervous",
-  "Losing composure",
-  "Ready to surrender"
-];
-
 let attempts = 0;
 let unlocked = false;
 let introOpened = false;
-let bubbleTimer;
 let touchMoveCooldown = false;
 let introTimerOne;
 let introTimerTwo;
-
-function showBubble(text) {
-  messageBubble.textContent = text;
-  messageBubble.classList.add("show");
-  window.clearTimeout(bubbleTimer);
-  bubbleTimer = window.setTimeout(() => {
-    messageBubble.classList.remove("show");
-  }, 1300);
-}
-
-function updateState() {
-  if (attempts < 6) {
-    moodDisplay.textContent = moods[0];
-    hintText.textContent = "This present has the energy of someone who knows she looks amazing.";
-  } else if (attempts < 12) {
-    moodDisplay.textContent = moods[1];
-    hintText.textContent = "The gift still believes in its own speed.";
-  } else if (attempts < 18) {
-    moodDisplay.textContent = moods[2];
-    hintText.textContent = "A little confidence has left the building.";
-  } else if (attempts < 24) {
-    moodDisplay.textContent = moods[3];
-    hintText.textContent = "This is no longer effortless for the box.";
-  } else if (attempts < totalAttempts) {
-    moodDisplay.textContent = moods[4];
-    hintText.textContent = "The gift is visibly running out of excuses.";
-  } else {
-    moodDisplay.textContent = moods[5];
-    hintText.textContent = "The gift has surrendered. One final click.";
-    giftButton.classList.add("can-catch");
-  }
-}
 
 function placeGiftRandomly() {
   const arenaRect = arena.getBoundingClientRect();
@@ -114,23 +37,20 @@ function revealGift() {
   giftButton.disabled = true;
   giftButton.style.cursor = "default";
   giftButton.classList.remove("can-catch");
-  showBubble("Voucher unlocked.");
   revealCard.classList.remove("hidden");
   revealCard.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
-function registerAttempt(messageOverride) {
+function registerAttempt() {
   if (unlocked || attempts >= totalAttempts) {
     return;
   }
 
   attempts += 1;
-  updateState();
   placeGiftRandomly();
-
-  const message =
-    messageOverride || dodgeMessages[Math.min(attempts - 1, dodgeMessages.length - 1)];
-  showBubble(message);
+  if (attempts >= totalAttempts) {
+    giftButton.classList.add("can-catch");
+  }
 }
 
 function openIntro() {
@@ -149,7 +69,6 @@ function openIntro() {
   introTimerTwo = window.setTimeout(() => {
     letterPanel.classList.remove("hidden");
     challengeSection.classList.remove("hidden");
-    hintStrip.classList.remove("hidden");
     envelopeStage.classList.add("hidden");
     transitionPanel.classList.remove("visible");
     challengeSection.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -189,7 +108,7 @@ giftButton.addEventListener("pointerdown", (event) => {
 giftButton.addEventListener("click", () => {
   if (attempts < totalAttempts) {
     if (!isCoarsePointer) {
-      registerAttempt("Not yet. The ribbon slipped away again.");
+      registerAttempt();
     }
     return;
   }
@@ -213,5 +132,3 @@ girlfriendPhoto.addEventListener("error", () => {
     '<div class="photo-placeholder">Add <code>girlfriend-photo.jpg</code> to the project folder to show her photo here.</div>'
   );
 });
-
-updateState();
